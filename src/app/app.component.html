@@ -1,50 +1,119 @@
 <h2>Student Information</h2>
 
-<form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm)" >
+<form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm)">
 
   <label>Student ID:</label><br>
-  <input type="number"
-         name="id"
-         [(ngModel)]="student.id" #id="ngModel"><br><br>
+  <input
+    type="number"
+    name="id"
+    [(ngModel)]="student.id"
+    #id="ngModel">
+  <br><br>
 
   <label>Full Name:</label><br>
-  <input type="text"
-         name="name"
-         [(ngModel)]="student.name"
-         required #name="ngModel"><br><br>
+  <input
+    type="text"
+    name="name"
+    [(ngModel)]="student.name"
+    required
+    #name="ngModel">
+  <br>
+  <span *ngIf="name.invalid && name.touched" style="color:red">
+    Name is required
+  </span>
+  <br><br>
 
   <label>Email:</label><br>
-  <input type="email"
-         name="email"
-         [(ngModel)]="student.email"
-         required #email="ngModel"><br><br>
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="student.email"
+    required
+    #email="ngModel">
+  <br>
+  <span *ngIf="email.invalid && email.touched" style="color:red">
+    Valid email is required
+  </span>
+  <br><br>
 
   <label>Department:</label><br>
-  <input type="text"
-         name="department"
-         [(ngModel)]="student.department" #department="ngModel"><br><br>
 
+<select name="department" [(ngModel)]="student.department">
 
-   
-   <label>Gender:</label><br>
+<option value="">Select Department</option>
 
-<input type="radio"
-       name="gender"
-       value="Male"
-       [(ngModel)]="student.gender"
-       required
-       #gender="ngModel"> Male
+<option *ngFor="let d of departments" [value]="d">
+  {{d}}
+</option>
 
-<input type="radio"
-       name="gender"
-       value="Female"
-       [(ngModel)]="student.gender"> Female
+</select>
+<br><br>
 
-<br>
+  <label>Gender:</label><br>
+
+  <input
+    type="radio"
+    name="gender"
+    value="Male"
+    [(ngModel)]="student.gender"
+    required
+    #gender="ngModel"> Male
+
+  <input
+    type="radio"
+    name="gender"
+    value="Female"
+    [(ngModel)]="student.gender"> Female
+
+  <br>
   <span *ngIf="gender.invalid && gender.touched" style="color:red">
     Gender is required
   </span>
-<br><br>      
+  <br><br>
+
+  <label>Skills:</label><br>
+
+  <input
+    type="checkbox"
+    [checked]="student.skills.includes('Java')"
+    (change)="onSkillChange($event, 'Java')"> Java
+
+  <input
+    type="checkbox"
+    [checked]="student.skills.includes('Angular')"
+    (change)="onSkillChange($event, 'Angular')"> Angular
+
+  <input
+    type="checkbox"
+    [checked]="student.skills.includes('Spring')"
+    (change)="onSkillChange($event, 'Spring')"> Spring
+
+  <input
+    type="checkbox"
+    [checked]="student.skills.includes('MySQL')"
+    (change)="onSkillChange($event, 'MySQL')"> MySQL
+
+  <br><br>
+
+  <label>Session:</label><br>
+  <input
+    type="text"
+    name="Session"
+    [(ngModel)]="student.Session"
+    #Session="ngModel">
+  <br><br>
+
+  <label>Address:</label><br>
+
+    <textarea
+      name="address"
+      [(ngModel)]="student.address"
+      rows="3"
+      cols="30"
+      #address="ngModel">
+    </textarea>
+
+<br><br>
 
   <button type="submit" [disabled]="studentForm.invalid">
     {{ editMode ? 'Update' : 'Save' }}
@@ -66,7 +135,8 @@
     <th>Department</th>
     <th>Gender</th>
     <th>Skills</th>
-    <th>Year</th>
+    <th>Session</th>
+    <th>Address</th>
     <th>Action</th>
   </tr>
 
@@ -77,7 +147,8 @@
     <td>{{ s.department }}</td>
     <td>{{ s.gender }}</td>
     <td>{{ s.skills.join(', ') }}</td>
-    <td>{{ s.year }}</td>
+    <td>{{ s.Session }}</td>
+    <td>{{ s.address }}</td>
     <td>
       <button (click)="editStudent(s)">Edit</button>
       <button (click)="deleteStudent(s.id!)">Delete</button>

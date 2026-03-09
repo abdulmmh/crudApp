@@ -1,3 +1,16 @@
 {
-  "students": []
+  "students": [
+    {
+      "name": "Mahadi Hasan",
+      "email": "abdulmannanmahadi@gmail.com",
+      "department": "EEE",
+      "gender": "Female",
+      "skills": [
+        "Spring"
+      ],
+      "Session": "2017/18",
+      "address": "paltan",
+      "id": 1
+    }
+  ]
 }
