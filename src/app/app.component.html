@@ -36,17 +36,28 @@
   </span>
   <br><br>
 
-  <label>Department:</label><br>
+<label>Department:</label><br>
 
-<select name="department" [(ngModel)]="student.department">
+    <select
+    name="department"
+    [(ngModel)]="student.department"
+    required
+    #department="ngModel">
 
-<option value="">Select Department</option>
+    <option value="">Select Department</option>
 
-<option *ngFor="let d of departments" [value]="d">
-  {{d}}
-</option>
+    <option *ngFor="let d of departments" [value]="d">
+      {{d}}
+    </option>
 
-</select>
+    </select>
+
+    <br>
+
+    <span *ngIf="department.invalid && department.touched" style="color:red">
+    Department is required
+    </span>
+
 <br><br>
 
   <label>Gender:</label><br>
