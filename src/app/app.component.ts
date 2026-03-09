@@ -87,7 +87,6 @@ export class AppComponent implements OnInit {
     this.student = { ...s };
     this.editId = s.id!;
     this.editMode = true;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   deleteStudent(id: number): void {
