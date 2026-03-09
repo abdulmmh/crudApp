@@ -1,0 +1,86 @@
+<h2>Student Information</h2>
+
+<form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm)" >
+
+  <label>Student ID:</label><br>
+  <input type="number"
+         name="id"
+         [(ngModel)]="student.id" #id="ngModel"><br><br>
+
+  <label>Full Name:</label><br>
+  <input type="text"
+         name="name"
+         [(ngModel)]="student.name"
+         required #name="ngModel"><br><br>
+
+  <label>Email:</label><br>
+  <input type="email"
+         name="email"
+         [(ngModel)]="student.email"
+         required #email="ngModel"><br><br>
+
+  <label>Department:</label><br>
+  <input type="text"
+         name="department"
+         [(ngModel)]="student.department" #department="ngModel"><br><br>
+
+
+   
+   <label>Gender:</label><br>
+
+<input type="radio"
+       name="gender"
+       value="Male"
+       [(ngModel)]="student.gender"
+       required
+       #gender="ngModel"> Male
+
+<input type="radio"
+       name="gender"
+       value="Female"
+       [(ngModel)]="student.gender"> Female
+
+<br>
+  <span *ngIf="gender.invalid && gender.touched" style="color:red">
+    Gender is required
+  </span>
+<br><br>      
+
+  <button type="submit" [disabled]="studentForm.invalid">
+    {{ editMode ? 'Update' : 'Save' }}
+  </button>
+
+  <button type="button" (click)="resetForm()">Clear</button>
+
+</form>
+
+<hr>
+
+<button (click)="loadStudents()">Show</button>
+
+<table *ngIf="showTable" border="1">
+  <tr>
+    <th>Student ID</th>
+    <th>Full Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Gender</th>
+    <th>Skills</th>
+    <th>Year</th>
+    <th>Action</th>
+  </tr>
+
+  <tr *ngFor="let s of students">
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.email }}</td>
+    <td>{{ s.department }}</td>
+    <td>{{ s.gender }}</td>
+    <td>{{ s.skills.join(', ') }}</td>
+    <td>{{ s.year }}</td>
+    <td>
+      <button (click)="editStudent(s)">Edit</button>
+      <button (click)="deleteStudent(s.id!)">Delete</button>
+    </td>
+  </tr>
+</table>
